@@ -11,6 +11,7 @@ public class PacketRegistry {
         REGISTRY.put("cast_spell", CastSpellPacket.class);
         REGISTRY.put("mana_update", ManaUpdatePacket.class);
         REGISTRY.put("sync_item", S2CSyncItemPacket.class);
+        REGISTRY.put("cast_slot", CastSlotPacket.class);
     }
 
     public static Class<? extends ReflactPacket> get(String id) {

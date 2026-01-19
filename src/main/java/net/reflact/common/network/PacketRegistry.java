@@ -12,6 +12,7 @@ public class PacketRegistry {
         REGISTRY.put("mana_update", ManaUpdatePacket.class);
         REGISTRY.put("sync_item", S2CSyncItemPacket.class);
         REGISTRY.put("cast_slot", CastSlotPacket.class);
+        REGISTRY.put("map_data", MapDataPacket.class);
     }
 
     public static Class<? extends ReflactPacket> get(String id) {

@@ -10,6 +10,7 @@ public class CustomItem {
     private int customModelData;
     private ItemType type;
     private ItemTier tier;
+    private int levelRequirement;
     private Map<String, Double> attributes;
     private Map<String, String> metadata;
 
@@ -18,6 +19,7 @@ public class CustomItem {
         this.attributes = new HashMap<>();
         this.metadata = new HashMap<>();
         this.lore = new ArrayList<>();
+        this.levelRequirement = 1;
     }
 
     public static Builder builder(String id, ItemType type, ItemTier tier) {
@@ -37,6 +39,7 @@ public class CustomItem {
         instance.customModelData = this.customModelData;
         instance.type = this.type;
         instance.tier = this.tier;
+        instance.levelRequirement = this.levelRequirement;
         instance.attributes = new HashMap<>(this.attributes);
         instance.metadata = new HashMap<>(this.metadata);
         return instance;
@@ -49,13 +52,14 @@ public class CustomItem {
     public int getCustomModelData() { return customModelData; }
     public ItemType getType() { return type; }
     public ItemTier getTier() { return tier; }
+    public int getLevelRequirement() { return levelRequirement; }
     public Map<String, Double> getAttributes() { return attributes; }
     public Map<String, String> getMetadata() { return metadata; }
 
     public Double getAttribute(String key) {
         return attributes.getOrDefault(key, 0.0);
     }
-
+    
     public String getMeta(String key) {
         return metadata.get(key);
     }
@@ -71,6 +75,11 @@ public class CustomItem {
             this.item.tier = tier;
             // Templates don't need UUIDs usually, but for safety
             this.item.uuid = null; 
+        }
+        
+        public Builder minLevel(int level) {
+            item.levelRequirement = level;
+            return this;
         }
 
         public Builder name(String name) {

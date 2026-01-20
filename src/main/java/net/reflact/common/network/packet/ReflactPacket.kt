@@ -1,5 +1,9 @@
 package net.reflact.common.network.packet
 
+import java.io.DataInput
+import java.io.DataOutput
+
 interface ReflactPacket {
-    // Marker interface for all Reflact packets
+    fun encode(output: DataOutput)
+    fun decode(input: DataInput)
 }

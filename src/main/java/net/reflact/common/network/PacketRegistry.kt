@@ -11,6 +11,7 @@ object PacketRegistry {
         REGISTRY["sync_item"] = S2CSyncItemPacket::class.java
         REGISTRY["cast_slot"] = CastSlotPacket::class.java
         REGISTRY["map_data"] = MapDataPacket::class.java
+        REGISTRY["damage_indicator"] = DamageIndicatorPacket::class.java
     }
 
     fun get(id: String): Class<out ReflactPacket>? {

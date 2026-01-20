@@ -1,33 +1,41 @@
 package net.reflact.common.network.packet
 
-data class MapDataPacket(
-    val startX: Int,
-    val startZ: Int,
-    val width: Int,
-    val height: Int,
-    val colors: ByteArray
-) : ReflactPacket {
-    override fun equals(other: Any?): Boolean {
-        if (this === other) return true
-        if (javaClass != other?.javaClass) return false
+import java.io.DataInput
+import java.io.DataOutput
 
-        other as MapDataPacket
+class MapDataPacket : ReflactPacket {
+    var startX: Int = 0
+    var startZ: Int = 0
+    var width: Int = 0
+    var height: Int = 0
+    var colors: ByteArray = ByteArray(0)
 
-        if (startX != other.startX) return false
-        if (startZ != other.startZ) return false
-        if (width != other.width) return false
-        if (height != other.height) return false
-        if (!colors.contentEquals(other.colors)) return false
+    constructor()
 
-        return true
+    constructor(startX: Int, startZ: Int, width: Int, height: Int, colors: ByteArray) {
+        this.startX = startX
+        this.startZ = startZ
+        this.width = width
+        this.height = height
+        this.colors = colors
     }
 
-    override fun hashCode(): Int {
-        var result = startX
-        result = 31 * result + startZ
-        result = 31 * result + width
-        result = 31 * result + height
-        result = 31 * result + colors.contentHashCode()
-        return result
+    override fun encode(output: DataOutput) {
+        output.writeInt(startX)
+        output.writeInt(startZ)
+        output.writeInt(width)
+        output.writeInt(height)
+        output.writeInt(colors.size)
+        output.write(colors)
+    }
+
+    override fun decode(input: DataInput) {
+        startX = input.readInt()
+        startZ = input.readInt()
+        width = input.readInt()
+        height = input.readInt()
+        val size = input.readInt()
+        colors = ByteArray(size)
+        input.readFully(colors)
     }
 }
